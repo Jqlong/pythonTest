@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="images">
+    <file>images/add_icon.png</file>
+    <file>images/back_icon.png</file>
+    <file>images/branch_icon.png</file>
+    <file>images/sub_icon.png</file>
+    <file>images/tab_icon.png</file>
+    <file>images/tab_icon_uns.png</file>
+  </qresource>
+</RCC>
