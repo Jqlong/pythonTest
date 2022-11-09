@@ -1,11 +1,13 @@
 import pygame
+from pygame.sprite import Sprite
 
 
-class Ship:
+class Ship(Sprite):
     """管理飞船的类"""
 
     def __init__(self, ai_game):
         """初始化飞船并设置其初试位置"""
+        super().__init__()
         # 1.屏幕
         self.screen = ai_game.screen  #
         self.screen_rect = ai_game.screen.get_rect()  # 方法访问屏幕的属性rect

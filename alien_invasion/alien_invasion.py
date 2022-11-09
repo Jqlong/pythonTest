@@ -92,6 +92,7 @@ class AlienInvasion:
             self.stats.game_active = True
             self.sb.prep_score()  # 重置游戏得分
             self.sb.prep_level()  # 重置等级
+            self.sb.prep_ships()
 
             # 清空余下的外星人和子弹
             self.aliens.empty()
@@ -251,6 +252,7 @@ class AlienInvasion:
         if self.stats.ships_left > 0:
             # 将ship_lest减1
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # 清空余下的外星人和子弹
             self.aliens.empty()
