@@ -2,7 +2,7 @@
 #     contents = file_object.read()
 # print(contents.rstrip())
 
-with open('../tip',encoding='UTF-8') as file_object:
+with open('../tip.txt', encoding='UTF-8') as file_object:
     lines = file_object.readlines()
 
 # for line in lines:
