@@ -6,6 +6,7 @@ input_file = 'sales_2013.xlsx'
 output_file = 'output/11_output.xls'
 output_workbook = Workbook()
 output_worksheet = output_workbook.add_sheet('set_of_worksheets')
+# 目标行的索引值
 my_sheets = [0, 1]
 threshold = 1900.0
 sales_column_index = 3
