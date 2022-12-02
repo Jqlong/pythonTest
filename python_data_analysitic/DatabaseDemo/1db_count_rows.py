@@ -1,7 +1,7 @@
 """sqlite3模块"""
 import sqlite3
 # 创建SQLite3内存数据库
-con = sqlite3.connect('My_database.db')
+con = sqlite3.connect(':memory:')
 query = """CREATE TABLE sales
             (customer VARCHAR(20),
             product VARCHAR(40),
@@ -21,6 +21,7 @@ con.commit()
 
 # 查询sales表
 cursor = con.execute("SELECT * FROM sales")
+# 起初结果集中的所有行
 rows = cursor.fetchall()
 
 # 计算查询结果中行的数量
