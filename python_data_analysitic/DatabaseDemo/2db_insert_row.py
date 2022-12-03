@@ -19,13 +19,19 @@ con.commit()
 
 # 读取csv文件
 file_reader = csv.reader(open(input_file, 'r'), delimiter=',')
+# 读取标题行
+print(type(file_reader))
 header = next(file_reader, None)
+# 遍历行
 for row in file_reader:
     data = []
+    # 遍历列
     for column_index in range(len(header)):
         data.append(row[column_index])
     print(data)
+    # 插入数据
     c.execute("INSERT INTO Suppliers VALUES (?,?,?,?,?);", data)
+print(type(row))  # 列表
 con.commit()
 print('')
 # 查询
