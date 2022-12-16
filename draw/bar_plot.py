@@ -13,5 +13,5 @@ plt.xticks(customers_index, customers, rotation=0, fontsize='small')  # 更改�
 plt.xlabel('Customer Name')   # 标题
 plt.ylabel('Sale Amount')
 plt.title('Sale Amount per Customer')
-# plt.savefig('bar_plot.png', dpi=400, bbox_inches='tight')
+# plt.savefig('bar_plo.png', dpi=400, bbox_inches='tight')
 plt.show()
