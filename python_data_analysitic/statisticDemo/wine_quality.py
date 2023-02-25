@@ -49,6 +49,7 @@ print('tstat: %.3f pvalue: %.4f' % (tstat, pvalue))
 # -----------------------------------------------------
 """成对变量之间的关系和相关性"""
 # 计算所有变量的相关矩阵
+# corr函数可以计算出数据集中所有变量老了之间的线性相关性。
 print(wine.corr())
 
 
@@ -69,5 +70,52 @@ print(g)
 plt.suptitle('Histograms and Scatter Plots of Quality, Alcohol, and Residual Sugar', fontsize=14, horizontalalignment='center', verticalalignment='top', x=0.5, y=0.999)
 plt.show()
 
+# --------------------------------
+# 使用最小二乘法估计进行线性回归
+my_formula = 'quality ~ alcohol + chlorides + citric_acid + density + fixed_acidity + free_sulfur_dioxide + pH + ' \
+             'residual_sugar + sulphates + total_sulfur_dioxide + volatile_acidity '
+# 使用公式和数据拟合一个普通最小二乘回归模型
+lm = ols(my_formula, data=wine).fit()
+# 打印摘要信息
+print(lm.summary())
+# 打印一个列表
+print("\nQuantities you can extract from the result:\n%s" % dir(lm))
+print("\nCoefficients:\n%s" % lm.params)
+print("\nCoefficients Std Errors:\n%s" % lm.bse)
+print("\nAdj. R-squared:\n%.2f" % lm.rsquared_adj)
+print("\nF-statistic:%.1f P-value:%.2f" % (lm.fvalue, lm.f_pvalue))
+print("\nNumber of obs:%d Number of fitted values:%d" % (lm.nobs, len(lm.fittedvalues)))
 
+
+# ----------------------------------------------------
+# 自变量标准化
+# 创建一个名为dependent_variable的数据框
+dependent_variable = wine['quality']
+
+# 创建一个名为independent_variable的数据框
+independent_variable = wine[wine.columns.difference(['quality', 'type', 'in_sample'])]
+
+# 对自变量标准化
+# 对每个变量，在每个观测中减去变量的均值
+# 并使用结果除以变量的标准差
+independent_variable_standardized = (independent_variable - independent_variable.mean() / independent_variable.std())
+
+# 将因变量quality作为一列添加到自变量数据框中
+# 创建一个带有标准化自变量的新数据集
+wine_standardized = pd.concat([dependent_variable, independent_variable_standardized], axis=1)
+lm_standardized = ols(my_formula, data=wine_standardized).fit()
+print(lm_standardized.summary())
+
+
+# ----------------------------------------7.2.7 预测---------------------
+# 使用葡萄酒数据集中的前10个观测创建10个“新”观测
+# 新观测中只包含模型中使用的自变量
+new_observations = wine.loc[wine.index.isin(range(10)), independent_variable.columns]
+
+# 基于新观测中的葡萄酒特性预测质量评分
+y_predicted = lm.predict(new_observations)
+
+# 将预测值保留两位小数并打印到屏幕上
+y_predicted_rounded = [round(score, 2) for score in y_predicted]
+print(y_predicted_rounded)
 

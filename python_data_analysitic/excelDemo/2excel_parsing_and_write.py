@@ -17,6 +17,7 @@ with open_workbook(input_file) as workbook:
         for column_index in range(worksheet.ncols):
             # 写
             output_worksheet.write(row_index, column_index, worksheet.cell_value(row_index, column_index))
+            print(worksheet.cell_value(row_index, column_index))
 # 保存并关闭输出工作簿
 output_workbook.save(output_file)
 
