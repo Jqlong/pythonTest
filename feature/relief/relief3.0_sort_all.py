@@ -20,6 +20,7 @@ sorted_pairs = sorted(feature_mi_pairs, key=lambda x: x[1], reverse=True)
 
 # 获取排序后的特征名称列表
 sorted_features = [pair[0] for pair in sorted_pairs]
+print(sorted_features)
 
 # 创建特征互信息矩阵
 mi_matrix = np.zeros((len(features.columns), len(features.columns)))

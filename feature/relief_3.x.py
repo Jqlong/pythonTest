@@ -3,11 +3,12 @@ import numpy as np
 import numpy.linalg as la
 import random
 import csv
-
+import matplotlib.pyplot as plt
 from joblib.numpy_pickle_utils import xrange
 
 # csdn上的代码
 from pandas import Series
+from sklearn.feature_selection import mutual_info_classif
 
 
 class Relief:
@@ -137,6 +138,37 @@ class Relief:
         mean = f_w.mean()
         mm = mean.sort_values(ascending=False, inplace=False)
         print(mm)
+        print('-----------------------------------', type(mm))
+        df = pd.read_csv('relief/all_lose_new.csv', encoding='gbk')
+        y = df.iloc[:, -1].values
+
+        print('这是前12的数据')
+        top_12_features = mm.index[:12]
+        print(top_12_features)
+
+        # top_12_features_df = df[top_12_features.index]
+        # mi_matrix = top_12_features_df.corr(method='spearman')
+        mi_matrix = np.zeros((len(top_12_features), len(top_12_features)))
+        # print(mi_matrix)
+        for i in range(len(top_12_features)):
+            for j in range(i + 1, len(top_12_features)):
+                feature_1 = top_12_features[i]
+                feature_2 = top_12_features[j]
+                mi = mutual_info_classif(df[[feature_1, feature_2]], y)
+                mi_matrix[i][j] = mi[0]
+                mi_matrix[j][i] = mi[0]
+        np.fill_diagonal(mi_matrix, 1)
+        # mi_matrix.to_excel('mi_matrix_new.xlsx')
+        mi_df = pd.DataFrame(mi_matrix, columns=top_12_features, index=top_12_features)
+        mi_df.to_excel("mi_matrix_new.xlsx")
+        print(mi_matrix)
+
+        # df_mi = pd.DataFrame(mi_matrix, columns=top_12_features, index=top_12_features)
+        # df_mi.to_excel('mi_matrix_new.xlsx')
+
+        # mm_cut = mm[0:12]
+        # print(mm_cut)
+        # 生成特征互信息矩阵
 
         # print(sorted(f_w.mean()))
         return mm
