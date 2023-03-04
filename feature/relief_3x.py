@@ -139,7 +139,8 @@ class Relief:
         mm = mean.sort_values(ascending=False, inplace=False)
         print(mm)
         print('-----------------------------------', type(mm))
-        df = pd.read_csv('relief/all_lose_new.csv', encoding='gbk')
+        # df = pd.read_csv('relief/all_lose_new.csv', encoding='gbk')
+        df = pd.read_csv('../relief/all_lose_new.csv', encoding='gbk')
         y = df.iloc[:, -1].values
 
         print('这是前12的数据')
@@ -230,6 +231,7 @@ if __name__ == '__main__':
     # df = f.get_data()
     # print(type(df.iloc[0]))
     # f.get_neighbors(df.iloc[0])
-    f.reliefF()
+    mm = f.reliefF()
+    print(mm)
 
     # f.get_final()
