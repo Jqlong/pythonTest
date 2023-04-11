@@ -124,5 +124,4 @@ with open_workbook(input_file) as workbook:
 data_frame.to_excel('output/result.xls', index=None)
 
 
-np.load('.npz')
 
